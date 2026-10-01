@@ -1,1 +1,55 @@
+#include <stdio.h>
+#include <string.h>
 
+int main()
+{
+    char a[50], b[50], c[50];
+    int i, n, pos, len, flag = 1;
+
+    printf("Enter first string: ");
+    scanf("%s", a);
+
+    printf("Enter second string: ");
+    scanf("%s", b);
+
+    // Compare
+    if (strcmp(a, b) == 0)
+        printf("\nCompare: Equal");
+    else
+        printf("\nCompare: Not Equal");
+
+    // Copy
+    strcpy(c, a);
+    printf("\nCopy: %s", c);
+
+    // Reverse
+    n = strlen(a);
+    printf("\nReverse: ");
+    for (i = n - 1; i >= 0; i--)
+        printf("%c", a[i]);
+
+    // Palindrome
+    for (i = 0; i < n / 2; i++)
+    {
+        if (a[i] != a[n - i - 1])
+            flag = 0;
+    }
+
+    if (flag == 1)
+        printf("\nPalindrome: Yes");
+    else
+        printf("\nPalindrome: No");
+
+    // Substring
+    printf("\nEnter position: ");
+    scanf("%d", &pos);
+
+    printf("Enter length: ");
+    scanf("%d", &len);
+
+    printf("Substring: ");
+    for (i = pos; i < pos + len; i++)
+        printf("%c", a[i]);
+
+    return 0;
+}
