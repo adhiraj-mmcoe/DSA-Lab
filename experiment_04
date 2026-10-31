@@ -1,0 +1,117 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct {
+    int emp_no;
+    char name[20];
+    float salary;
+} Employee;
+
+Employee emp[30]; 
+int n = 0;       
+
+
+void create() {
+    printf("Enter number of employees: ");
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        printf("\nEnter details for Employee %d:\n", i + 1);
+        printf("Emp No: ");
+        scanf("%d", &emp[i].emp_no);
+        printf("Name: ");
+        scanf("%s", emp[i].name);
+        printf("Salary: ");
+        scanf("%f", &emp[i].salary);
+    }
+    printf("\nDatabase created successfully!\n");
+}
+
+
+void display() {
+    if (n == 0) {
+        printf("\nDatabase is empty!\n");
+        return;
+    }
+    printf("\n--- Employee Database ---\n");
+    printf("Emp No\tName\t\tSalary\n");
+    printf("--------------------------------\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d\t%s\t\t%.2f\n", emp[i].emp_no, emp[i].name, emp[i].salary);
+    }
+}
+
+
+void modify() {
+    int id, found = 0;
+    printf("Enter Employee No to modify: ");
+    scanf("%d", &id);
+    for (int i = 0; i < n; i++) {
+        if (emp[i].emp_no == id) {
+            printf("Enter New Name: ");
+            scanf("%s", emp[i].name);
+            printf("Enter New Salary: ");
+            scanf("%f", &emp[i].salary);
+            printf("Record updated successfully!\n");
+            found = 1;
+            break;
+        }
+    }
+    if (!found) printf("Employee not found!\n");
+}
+
+
+void search() {
+    int id, found = 0;
+    printf("Enter Employee No to search: ");
+    scanf("%d", &id);
+    for (int i = 0; i < n; i++) {
+        if (emp[i].emp_no == id) {
+            printf("\nEmployee Found:\n");
+            printf("Emp No: %d\nName: %s\nSalary: %.2f\n", emp[i].emp_no, emp[i].name, emp[i].salary);
+            found = 1;
+            break;
+        }
+    }
+    if (!found) printf("Employee not found!\n");
+}
+
+
+void sort() {
+    Employee temp;
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (emp[j].emp_no > emp[j + 1].emp_no) {
+                temp = emp[j];
+                emp[j] = emp[j + 1];
+                emp[j + 1] = temp;
+            }
+        }
+    }
+    printf("\nDatabase sorted by Employee Number successfully!\n");
+}
+
+int main() {
+    int choice;
+    while (1) {
+        printf("\n==== DATABASE OPERATIONS ====\n");
+        printf("1. Create\n");
+        printf("2. Display\n");
+        printf("3. Modify\n");
+        printf("4. Search\n");
+        printf("5. Sort\n");
+        printf("6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: create(); break;
+            case 2: display(); break;
+            case 3: modify(); break;
+            case 4: search(); break;
+            case 5: sort(); break;
+            case 6: return 0;
+            default: printf("Invalid choice! Try again.\n");
+        }
+    }
+    return 0;
+}
