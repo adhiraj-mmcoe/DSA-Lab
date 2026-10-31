@@ -1,0 +1,62 @@
+
+#include <stdio.h>
+
+#define SIZE 5
+
+char queue[SIZE];
+int front = -1, rear = -1;
+
+void send(char data)
+{
+    if ((rear + 1) % SIZE == front)
+    {
+        printf("Transmit buffer is full\n");
+        return;
+    }
+
+    if (front == -1)
+        front = 0;
+
+    rear = (rear + 1) % SIZE;
+    queue[rear] = data;
+
+    printf("Transmitted: %c\n", data);
+}
+
+void receive()
+{
+    if (front == -1)
+    {
+        printf("No data available\n");
+        return;
+    }
+
+    printf("Received: %c\n", queue[front]);
+
+    if (front == rear)
+    {
+        front = -1;
+        rear = -1;
+    }
+    else
+    {
+        front = (front + 1) % SIZE;
+    }
+}
+
+int main()
+{
+    send('A');
+    send('B');
+    send('C');
+
+    receive();
+    receive();
+
+    send('D');
+
+    receive();
+    receive();
+
+    return 0;
+}
